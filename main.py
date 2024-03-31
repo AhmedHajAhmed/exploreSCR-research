@@ -1,5 +1,5 @@
-from preprocessing_utils import *
-from pyarabic import araby
+from preprocessing_utils import preprocess_text
+import pandas as pd
 
 
 # load datasets
@@ -48,15 +48,6 @@ df['Tweet'] = df['Tweet'].apply(preprocess_text)
 
 # Apply the mapping to the 'Class' column
 df['Class'] = df['Class'].map({'hate': 1, 'normal': 0})
-
-
-# Define an empty list to store the stop words
-arabic_stop_words = []
-# Open the text file and read each line in the file
-with open('arabic_stopwords_list.txt', 'r', encoding='utf-8') as file:
-    for line in file:
-        arabic_stop_words.append(preprocess_text(line.strip()))
-
 
 
 
