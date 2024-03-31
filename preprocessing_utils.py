@@ -4,6 +4,7 @@ from typing import Callable, Dict, List
 from pyarabic.araby import strip_tashkeel, strip_tatweel
 import pandas as pd
 
+
 def remove_punctuations(text: str) -> str:
     # This function removes Arabic & English punctuations from a string
     arabic_punctuations = '''`÷×؛<>_()*&^%][ـ،/:"؟.,'{}~¦+|!”…“–ـ'''
@@ -25,7 +26,7 @@ def normalize_arabic(text: str) -> str:
 
 
 def remove_emoji(text: str) -> str:
-    "This function removes emojis from a string"
+    # This function removes emojis from a string
     emoji_pattern = re.compile("["
                                    u"\U0001F600-\U0001F64F"  # emoticons
                                    u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -39,7 +40,7 @@ def remove_emoji(text: str) -> str:
 
 
 def remove_nums(text: str) -> str:
-    "This function removes Arabic and English numbers from a string"
+    # This function removes Arabic and English numbers from a string
     text = re.sub('[\u0661-\u0669]+', '', text)          # remove Arabic numbers
     text = ''.join(i for i in text if not i.isdigit())   # remove English numbers
     return text
@@ -66,8 +67,16 @@ def count_preprocessed_tweets(df: pd.DataFrame, preprocessing_functions: List[Ca
     return counts
 
 
+def remove_stop_words(text: str, stop_words: list[str]) -> str:
+    # This function removes stop words from a text
+    words = text.split()
+    filtered_words = [word for word in words if word not in stop_words]
+    return ' '.join(filtered_words)
+
+
 def preprocess_text(text: str) -> str:
     # This function applies a series of text preprocessing steps to the input text
+    from arabic_stop_words import arabic_stop_words
     text = strip_tashkeel(text)
     text = strip_tatweel(text)
     text = remove_punctuations(text)
@@ -75,6 +84,7 @@ def preprocess_text(text: str) -> str:
     text = remove_emoji(text)
     text = remove_nums(text)
     text = remove_english_letters(text)
+    text = remove_stop_words(text, arabic_stop_words)
     return text
 
 
