@@ -7,20 +7,21 @@ from sklearn.metrics import accuracy_score, classification_report
 from gensim.models import KeyedVectors
 import fasttext
 import numpy as np
-from main import df, arabic_stop_words
+from main import df
+import pandas as pd
 
 
-def train_and_evaluate(df, arabic_stop_words):
+def train_and_evaluate(df: pd.DataFrame) -> None:
     # Splitting the data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(df['Tweet'], df['Class'], test_size=0.2, random_state=42)
 
     # BoW Vectorization
-    vectorizer_bow = CountVectorizer(stop_words=arabic_stop_words)
+    vectorizer_bow = CountVectorizer()
     X_train_bow = vectorizer_bow.fit_transform(X_train)
     X_test_bow = vectorizer_bow.transform(X_test)
 
     # TF-IDF Vectorization
-    vectorizer_tfidf = TfidfVectorizer(stop_words=arabic_stop_words)
+    vectorizer_tfidf = TfidfVectorizer()
     X_train_tfidf = vectorizer_tfidf.fit_transform(X_train)
     X_test_tfidf = vectorizer_tfidf.transform(X_test)
 
@@ -42,12 +43,19 @@ def train_and_evaluate(df, arabic_stop_words):
     X_train_fasttext = np.array([text_to_vector_fasttext(text, fasttext_model) for text in X_train])
     X_test_fasttext = np.array([text_to_vector_fasttext(text, fasttext_model) for text in X_test])
 
+    # Pre-trained GloVe Vectorization
+    glove_path = 'models/glove/glove.6B.300d.txt'
+    glove_embeddings = load_glove_embeddings(glove_path)
+    X_train_glove = np.array([text_to_vector_glove(text, glove_embeddings) for text in X_train])
+    X_test_glove = np.array([text_to_vector_glove(text, glove_embeddings) for text in X_test])
+
     # Training and Evaluating Models
     models = {'BoW': (X_train_bow, X_test_bow),
               'TF-IDF': (X_train_tfidf, X_test_tfidf),
               'Pre-trained GoogleNews Word2Vec': (X_train_GoogleNews_w2v, X_test_GoogleNews_w2v),
               'Custom dataset-trained Word2Vec' : (X_train_custom_w2v, X_test_custom_w2v),
-              'Pre-trained Arabic fastText': (X_train_fasttext, X_test_fasttext)}
+              'Pre-trained Arabic fastText': (X_train_fasttext, X_test_fasttext),
+              'Pre-trained GloVe': (X_train_glove, X_test_glove)}
 
     for name, (X_train_vec, X_test_vec) in models.items():
         model = LogisticRegression().fit(X_train_vec, y_train)
@@ -76,7 +84,28 @@ def text_to_vector_fasttext(text, model):
     return np.mean(word_vectors, axis=0) if word_vectors else np.zeros(model.get_dimension())
 
 
+def text_to_vector_glove(text, embeddings):
+    words = text.split()
+    word_vectors = [embeddings[word] for word in words if word in embeddings]
+
+    if not word_vectors:
+        return np.zeros(300)  # Assuming you are using 300-dimensional GloVe vectors
+
+    return np.mean(word_vectors, axis=0)
 
 
-train_and_evaluate(df, arabic_stop_words)
+def load_glove_embeddings(path):
+    embeddings = {}
+    with open(path, 'r', encoding='utf-8') as f:
+        for line in f:
+            values = line.split()
+            word = values[0]
+            vector = np.asarray(values[1:], dtype='float32')
+            embeddings[word] = vector
+    return embeddings
+
+
+
+
+train_and_evaluate(df)
 
