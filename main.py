@@ -3,7 +3,7 @@ import pandas as pd
 
 
 # load datasets
-path = "datasets/L-HSAB.txt"
+path = "dataset/L-HSAB.txt"
 df = pd.read_table(path, delimiter="	")
 
 
