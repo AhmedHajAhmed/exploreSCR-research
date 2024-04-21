@@ -3,12 +3,23 @@ from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from gensim.models import KeyedVectors
 import fasttext
 import numpy as np
 from main import df
 import pandas as pd
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+import xgboost as xgb
+from catboost import CatBoostClassifier
+from test_data_balance import df_undersampled, df_oversampled
+
+
+
 
 
 def train_and_evaluate(df: pd.DataFrame) -> None:
@@ -59,9 +70,19 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
 
     for name, (X_train_vec, X_test_vec) in models.items():
         model = LogisticRegression().fit(X_train_vec, y_train)
+        # model = MultinomialNB().fit(X_train_vec, y_train)    ####
+        # model = RandomForestClassifier().fit(X_train_vec, y_train)    # throws error for dense embeddings as well
+        # model = SVC(kernel='linear').fit(X_train_vec, y_train)
+        # model = DecisionTreeClassifier().fit(X_train_vec, y_train)
+        # model = KNeighborsClassifier().fit(X_train_vec, y_train)
+        # model = xgb.XGBClassifier(objective='binary:logistic', eval_metric='logloss').fit(X_train_vec, y_train)
+        # model = CatBoostClassifier(verbose=0).fit(X_train_vec, y_train)
+
+
         y_pred = model.predict(X_test_vec)
         print(f"{name} Model Evaluation:")
         print("Accuracy:", accuracy_score(y_test, y_pred))
+        # print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
         # print("Classification Report:\n", classification_report(y_test, y_pred), "\n")
         print("===============================================")
 
@@ -107,5 +128,8 @@ def load_glove_embeddings(path):
 
 
 
-train_and_evaluate(df)
+# train_and_evaluate(df)
+# train_and_evaluate(df_undersampled)
+train_and_evaluate(df_oversampled)
+
 
