@@ -3,7 +3,7 @@ from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score
 from gensim.models import KeyedVectors
 import fasttext
 import numpy as np
@@ -17,7 +17,9 @@ from sklearn.neighbors import KNeighborsClassifier
 import xgboost as xgb
 from catboost import CatBoostClassifier
 from test_data_balance import df_undersampled, df_oversampled
-
+from train_word2vec import combined_levantine_df, combined_arabic_df
+from embedding_utils import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, \
+    text_to_vector_fasttext, text_to_vector_glove, load_glove_embeddings
 
 
 
@@ -43,7 +45,9 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
     X_test_GoogleNews_w2v = np.array([text_to_vector_GoogleNews_word2vec(text, GoogleNews_word2vec_model) for text in X_test])
 
     # Custom dataset-trained Word2Vec Vectorization
-    tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in df['Tweet']]
+    # tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in df['Tweet']]
+    # tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in combined_levantine_df['text']] ######
+    tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in combined_arabic_df['text']] ######
     word2vec_custom_model = Word2Vec(sentences=tokenized_corpus, vector_size=100, window=5, min_count=5, workers=4)
     X_train_custom_w2v = np.array([text_to_vector_custom_word2vec(text, word2vec_custom_model) for text in X_train])
     X_test_custom_w2v = np.array([text_to_vector_custom_word2vec(text, word2vec_custom_model) for text in X_test])
@@ -69,9 +73,9 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
               'Pre-trained GloVe': (X_train_glove, X_test_glove)}
 
     for name, (X_train_vec, X_test_vec) in models.items():
-        model = LogisticRegression().fit(X_train_vec, y_train)
-        # model = MultinomialNB().fit(X_train_vec, y_train)    ####
-        # model = RandomForestClassifier().fit(X_train_vec, y_train)    # throws error for dense embeddings as well
+        model = LogisticRegression(max_iter=1000).fit(X_train_vec, y_train)
+        # model = MultinomialNB().fit(X_train_vec, y_train)    # throws errors when using word2vec because can't take negative nums
+        # model = RandomForestClassifier().fit(X_train_vec, y_train)
         # model = SVC(kernel='linear').fit(X_train_vec, y_train)
         # model = DecisionTreeClassifier().fit(X_train_vec, y_train)
         # model = KNeighborsClassifier().fit(X_train_vec, y_train)
@@ -81,7 +85,8 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
 
         y_pred = model.predict(X_test_vec)
         print(f"{name} Model Evaluation:")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
+        # print("Accuracy:", accuracy_score(y_test, y_pred))
+        print("F1-score:", f1_score(y_test, y_pred))
         # print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
         # print("Classification Report:\n", classification_report(y_test, y_pred), "\n")
         print("===============================================")
@@ -89,47 +94,11 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
 
 
 
-def text_to_vector_GoogleNews_word2vec(text, model):
-    word_vectors = [model[word] for word in text.split() if word in model]
-    return np.mean(word_vectors, axis=0) if word_vectors else np.zeros(model.vector_size)
-
-
-def text_to_vector_custom_word2vec(text, model):
-    words = gensim.utils.simple_preprocess(text)
-    words = [word for word in words if word in model.wv.key_to_index]
-    return np.mean([model.wv[word] for word in words], axis=0) if words else np.zeros(model.vector_size)
-
-
-def text_to_vector_fasttext(text, model):
-    word_vectors = [model.get_word_vector(word) for word in text.split()]
-    return np.mean(word_vectors, axis=0) if word_vectors else np.zeros(model.get_dimension())
-
-
-def text_to_vector_glove(text, embeddings):
-    words = text.split()
-    word_vectors = [embeddings[word] for word in words if word in embeddings]
-
-    if not word_vectors:
-        return np.zeros(300)  # Assuming you are using 300-dimensional GloVe vectors
-
-    return np.mean(word_vectors, axis=0)
-
-
-def load_glove_embeddings(path):
-    embeddings = {}
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            values = line.split()
-            word = values[0]
-            vector = np.asarray(values[1:], dtype='float32')
-            embeddings[word] = vector
-    return embeddings
-
-
-
-
 # train_and_evaluate(df)
-# train_and_evaluate(df_undersampled)
-train_and_evaluate(df_oversampled)
+train_and_evaluate(df_undersampled)
+# train_and_evaluate(df_oversampled)
+
+
+
 
 

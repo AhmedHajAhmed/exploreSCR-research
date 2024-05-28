@@ -19,7 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 from gensim.models import KeyedVectors
 import fasttext
-from train_and_evaluate import combined_df
+from train_and_evaluate import combined_arabic_df, combined_levantine_df
 from test_data_balance import df_undersampled, df_oversampled
 
 
@@ -47,7 +47,7 @@ def train_and_evaluate_csv(df: pd.DataFrame) -> pd.DataFrame:
 
     # dataset-trained Word2Vec Vectorization
     # tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in df['Tweet']]
-    tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in combined_df['text']] ######
+    tokenized_corpus = [gensim.utils.simple_preprocess(doc) for doc in combined_arabic_df['text']]
     word2vec_custom_model = Word2Vec(sentences=tokenized_corpus, vector_size=100, window=5, min_count=5, workers=4)
     X_train_custom_w2v = np.array([text_to_vector_custom_word2vec(text, word2vec_custom_model) for text in X_train])
     X_test_custom_w2v = np.array([text_to_vector_custom_word2vec(text, word2vec_custom_model) for text in X_test])
@@ -76,11 +76,11 @@ def train_and_evaluate_csv(df: pd.DataFrame) -> pd.DataFrame:
         'Logistic Regression': LogisticRegression(max_iter=1000),
         # 'Multinomial NB': MultinomialNB(),
         'Random Forest': RandomForestClassifier(),
-        'SVC': SVC(kernel='linear'),
-        'Decision Tree': DecisionTreeClassifier(),
-        'K-Nearest Neighbors': KNeighborsClassifier(),
-        'XGBoost': xgb.XGBClassifier(objective='binary:logistic', eval_metric='logloss'),
-        'CatBoost': CatBoostClassifier(verbose=0)
+        # 'SVC': SVC(kernel='linear'),
+        # 'Decision Tree': DecisionTreeClassifier(),
+        # 'K-Nearest Neighbors': KNeighborsClassifier(),
+        # 'XGBoost': xgb.XGBClassifier(objective='binary:logistic', eval_metric='logloss'),
+        # 'CatBoost': CatBoostClassifier(verbose=0)
     }
     # Initialize results dictionary
     results = []
@@ -126,7 +126,6 @@ pivoted_df.to_csv('model_evaluation.csv')
 
 # Print the pivoted DataFrame
 print(pivoted_df.to_string())
-
 
 
 
