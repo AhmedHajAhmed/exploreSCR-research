@@ -1,0 +1,45 @@
+==============================================================================================================================================================
+
+runs on df_oversampled (F1 score)
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.815374       0.807947             0.717288             0.712154       0.836692  0.718596  0.838043
+Custom Levantine dataset-trained Word2Vec                  0.795565       0.785714             0.703655             0.732265       0.846373  0.716308  0.834382
+Only dataset-trained Word2Vec                              0.792867       0.806757             0.730316             0.704403       0.837818  0.723195  0.807746
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.822222       0.798935             0.703297             0.713267       0.835088  0.687023  0.846524
+Custom Levantine dataset-trained Word2Vec                  0.797799       0.795756             0.720930             0.731792       0.844604  0.717437  0.821975
+Only dataset-trained Word2Vec                              0.808834       0.793421             0.718387             0.741627       0.834646  0.726087  0.826538
+
+===============================================================================================================================================================
+
+runs on df_undersampled (F1 score)
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.668317       0.612981             0.620690             0.726231       0.670000  0.714443  0.664251
+Custom Levantine dataset-trained Word2Vec                  0.651659       0.614458             0.628378             0.704306       0.648521  0.684022  0.634088
+Only dataset-trained Word2Vec                              0.681818       0.591074             0.633257             0.616702       0.662763  0.663480  0.641056
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.677460       0.619952             0.631068             0.727064       0.678133  0.718232  0.675418
+Custom Levantine dataset-trained Word2Vec                  0.647128       0.597156             0.628697             0.705191       0.627119  0.683453  0.636145
+Only dataset-trained Word2Vec                              0.697006       0.578049             0.647450             0.619808       0.661939  0.669838  0.630072
+
+===============================================================================================================================================================
+
+runs on df (imbalanced data) (F1 score)
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.577717       0.525301             0.511568             0.459966       0.571038  0.374046  0.571798
+Custom Levantine dataset-trained Word2Vec                  0.510029       0.484988             0.544578             0.175439       0.526929  0.163717  0.548862
+Only dataset-trained Word2Vec                              0.465465       0.457888             0.506388             0.000000       0.467692  0.000000  0.492997
+
+Classifier                                                 CatBoost  Decision Tree  K-Nearest Neighbors  Logistic Regression  Random Forest       SVC   XGBoost
+Custom Levantine + non-Levantine dataset-trained Word2Vec  0.576087       0.514874             0.537201             0.458404       0.573770  0.380228  0.569191
+Custom Levantine dataset-trained Word2Vec                  0.506627       0.499400             0.518433             0.175439       0.517544  0.163717  0.559140
+Only dataset-trained Word2Vec                              0.463855       0.498789             0.511521             0.000000       0.472892  0.000000  0.504801
+
+===============================================================================================================================================================
+
+
