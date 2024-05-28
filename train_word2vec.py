@@ -5,13 +5,13 @@ from preprocessing_utils import preprocess_text
 
 # Load DataFrames
 
-df1 = pd.read_csv("word2vec_training_datasets/hate_speech_mlma ar_dataset.csv")
+df1 = pd.read_csv("data/word2vec_training_datasets/word2vec_training_datasets/hate_speech_mlma ar_dataset.csv")
 df1 = df1[["tweet"]]
 
-df2 = pd.read_csv("word2vec_training_datasets/let-mi_train_part.csv")
+df2 = pd.read_csv("data/word2vec_training_datasets/word2vec_training_datasets/let-mi_train_part.csv")
 df2 = df2[["text"]]
 
-df3 = pd.read_table("word2vec_training_datasets/L-HSAB.txt", delimiter="	")
+df3 = pd.read_table("data/word2vec_training_datasets/word2vec_training_datasets/L-HSAB.txt", delimiter="	")
 df3 = df3[["Tweet"]]
 
 df4 = pd.read_excel("word2vec_training_datasets/AJCommentsClassification-CF.xlsx")
@@ -26,7 +26,7 @@ df6 = df6[["text"]]
 df7 = pd.read_excel("word2vec_training_datasets/AJGT.xlsx")
 df7 = df7[["Feed"]]
 
-df8 = pd.read_csv("word2vec_training_datasets/Tweets.txt", delimiter='\t', header=None, names=['text', 'label'])
+df8 = pd.read_csv("data/word2vec_training_datasets/word2vec_training_datasets/Tweets.txt", delimiter='\t', header=None, names=['text', 'label'])
 df8 = df8[["text"]]
 
 
