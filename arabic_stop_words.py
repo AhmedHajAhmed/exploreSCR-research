@@ -5,7 +5,7 @@ from preprocessing_utils import preprocess_text
 arabic_stop_words = []
 
 # Open the text file and read each line in the file
-with open('arabic_stopwords_list.txt', 'r', encoding='utf-8') as file:
+with open('data/arabic_stopwords_list.txt', 'r', encoding='utf-8') as file:
     for line in file:
         arabic_stop_words.append(preprocess_text(line.strip()))
 
