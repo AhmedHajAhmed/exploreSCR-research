@@ -8,7 +8,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 import xgboost as xgb
 from catboost import CatBoostClassifier
-from train_and_evaluate import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, text_to_vector_fasttext, text_to_vector_glove, load_glove_embeddings
+from scripts.train_and_evaluate import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, text_to_vector_fasttext, text_to_vector_glove, load_glove_embeddings
 import numpy as np
 from main import df
 import pandas as pd
@@ -19,7 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 from gensim.models import KeyedVectors
 import fasttext
-from train_and_evaluate import combined_arabic_df, combined_levantine_df
+from scripts.train_and_evaluate import combined_arabic_df, combined_levantine_df
 from test_data_balance import df_undersampled, df_oversampled
 
 

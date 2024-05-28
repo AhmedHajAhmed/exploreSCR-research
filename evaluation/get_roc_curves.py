@@ -1,26 +1,23 @@
 import gensim
 from matplotlib import pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 import xgboost as xgb
 from catboost import CatBoostClassifier
-from train_and_evaluate import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, \
+from scripts.train_and_evaluate import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, \
     text_to_vector_fasttext, text_to_vector_glove, load_glove_embeddings
 import numpy as np
-from main import df
 import pandas as pd
 from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, auc
+from sklearn.metrics import roc_curve, auc
 from gensim.models import KeyedVectors
 import fasttext
-from test_data_balance import df_undersampled, df_oversampled
+from test_data_balance import df_undersampled
 
 
 def plot_roc_auc(df: pd.DataFrame) -> None:

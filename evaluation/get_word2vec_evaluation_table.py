@@ -5,18 +5,15 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 import xgboost as xgb
 from catboost import CatBoostClassifier
-from train_and_evaluate import text_to_vector_custom_word2vec
+from scripts.train_and_evaluate import text_to_vector_custom_word2vec
 import numpy as np
 from main import df
 import pandas as pd
 from gensim.models import Word2Vec
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, f1_score
+from sklearn.metrics import f1_score
 from train_word2vec import combined_levantine_df, combined_arabic_df
-from test_data_balance import df_undersampled, df_oversampled
-
-
 
 
 def train_and_evaluate_csv(df: pd.DataFrame) -> pd.DataFrame:

@@ -31,7 +31,7 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
     X_test_tfidf = vectorizer_tfidf.transform(X_test)
 
     # Pre-trained GoogleNews Word2Vec Vectorization
-    GoogleNews_word2vec_model_path = 'models/GoogleNews-vectors-negative300.bin'
+    GoogleNews_word2vec_model_path = '../models/GoogleNews-vectors-negative300.bin'
     GoogleNews_word2vec_model = KeyedVectors.load_word2vec_format(GoogleNews_word2vec_model_path, binary=True)
     X_train_GoogleNews_w2v = np.array([text_to_vector_GoogleNews_word2vec(text, GoogleNews_word2vec_model) for text in X_train])
     X_test_GoogleNews_w2v = np.array([text_to_vector_GoogleNews_word2vec(text, GoogleNews_word2vec_model) for text in X_test])
@@ -45,13 +45,13 @@ def train_and_evaluate(df: pd.DataFrame) -> None:
     X_test_custom_w2v = np.array([text_to_vector_custom_word2vec(text, word2vec_custom_model) for text in X_test])
 
     # Pre-trained Arabic fastText Vectorization
-    fasttext_model_path = 'models/cc.ar.300.bin'
+    fasttext_model_path = '../models/cc.ar.300.bin'
     fasttext_model = fasttext.load_model(fasttext_model_path)
     X_train_fasttext = np.array([text_to_vector_fasttext(text, fasttext_model) for text in X_train])
     X_test_fasttext = np.array([text_to_vector_fasttext(text, fasttext_model) for text in X_test])
 
     # Pre-trained GloVe Vectorization
-    glove_path = 'models/glove/glove.6B.300d.txt'
+    glove_path = '../models/glove/glove.6B.300d.txt'
     glove_embeddings = load_glove_embeddings(glove_path)
     X_train_glove = np.array([text_to_vector_glove(text, glove_embeddings) for text in X_train])
     X_test_glove = np.array([text_to_vector_glove(text, glove_embeddings) for text in X_test])
