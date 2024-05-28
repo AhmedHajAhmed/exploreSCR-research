@@ -76,7 +76,7 @@ def remove_stop_words(text: str, stop_words: list[str]) -> str:
 
 def preprocess_text(text: str) -> str:
     # This function applies a series of text preprocessing steps to the input text
-    from arabic_stop_words import arabic_stop_words
+    from utils.arabic_stop_words import arabic_stop_words
     text = strip_tashkeel(text)
     text = strip_tatweel(text)
     text = remove_punctuations(text)

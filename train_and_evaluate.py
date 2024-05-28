@@ -3,22 +3,14 @@ from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score
+from sklearn.metrics import f1_score
 from gensim.models import KeyedVectors
 import fasttext
 import numpy as np
-from main import df
 import pandas as pd
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-import xgboost as xgb
-from catboost import CatBoostClassifier
-from test_data_balance import df_undersampled, df_oversampled
-from train_word2vec import combined_levantine_df, combined_arabic_df
-from embedding_utils import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, \
+from test_data_balance import df_undersampled
+from train_word2vec import combined_arabic_df
+from utils.embedding_utils import text_to_vector_GoogleNews_word2vec, text_to_vector_custom_word2vec, \
     text_to_vector_fasttext, text_to_vector_glove, load_glove_embeddings
 
 

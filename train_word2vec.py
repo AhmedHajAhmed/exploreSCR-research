@@ -1,6 +1,5 @@
 import pandas as pd
-import openpyxl
-from preprocessing_utils import preprocess_text
+from utils.preprocessing_utils import preprocess_text
 
 
 # Load DataFrames
