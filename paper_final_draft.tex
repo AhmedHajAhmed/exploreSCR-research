@@ -13,7 +13,7 @@
 \usepackage{latexsym}
 
 
-%% To render Arabic letters %% 
+% % To render Arabic letters %% 
 % \usepackage{arabtex} 
 % \usepackage{utf8}
 % \setcode{utf8}
@@ -127,23 +127,38 @@
 % \setlength{\parskip}{0pt}
 % \raggedbottom
 \maketitle
+
+
 \begin{abstract}
+% {\small \textbf{Content Warning:} The content of this paper may be upsetting or triggering to some readers.}
+
+% \vspace{0.4em} % Adds space between the warning and the abstract text.
+
 Social media platforms have become central to global communication, yet they also facilitate the spread of hate speech. For underrepresented dialects like Levantine Arabic, detecting hate speech presents unique cultural, ethical, and linguistic challenges. This paper explores the complex sociopolitical and linguistic landscape of Levantine Arabic and critically examines the limitations of current datasets used in hate speech detection. We highlight the scarcity of publicly available, diverse datasets and analyze the consequences of dialectal bias within existing resources. By emphasizing the need for culturally and contextually informed natural language processing (NLP) tools, we advocate for a more nuanced and inclusive approach to hate speech detection in the Arab world. 
+
+\vspace{0.3em}
+
+\noindent \textbf{Warning:} The content of this paper may be upsetting or triggering to some readers.
+% \end{abstract}
 \end{abstract}
+
+
+% %%%%% Add the content warning here
+% \noindent \textbf{Content Warning:} The content of this paper may be upsetting or triggering to some readers.
 
 
 \section{Introduction}
 
-Language, reflecting culture and identity, can both unite and divide communities. In the Levant, deep-rooted socio-political tensions have turned language into a potent weapon. The rise of digital platforms has amplified hate speech, necessitating robust detection and mitigation mechanisms (Castaño-Pulgarín et al., 2021; Awan, 2014). Automated tools leveraging NLP are essential for curbing online hate speech (Jahan and Oussalah, 2023). However, these tools are not equally effective across all languages and dialects. While significant progress has been made for languages like English, Levantine Arabic remains underserved (Bender, 2019).
+Language, reflecting culture and identity, can both unite and divide communities. In the Levant, deep-rooted socio-political tensions have turned language into a potent weapon. The rise of digital platforms has amplified hate speech, necessitating robust detection and mitigation mechanisms \citep{CASTANOPULGARIN2021101608, https://doi.org/10.1002/1944-2866.POI364}. Automated tools leveraging NLP are essential for curbing online hate speech \citep{JAHAN2023126232}. However, these tools are not equally effective across all languages and dialects. While significant progress has been made for languages like English, Levantine Arabic remains underserved \citep{bender2019rule}.
 
-Levantine Arabic, spoken across Syria, Jordan, Palestine, and Lebanon, is a dialect continuum with significant regional variations, making it challenging for current NLP technologies to capture (El Haff et al., 2022). Existing hate speech detection models often overlook the rich cultural and sociolinguistic nuances of the dialect. This paper addresses the ethical, cultural, and linguistic challenges in detecting hate speech in Levantine Arabic and highlights the critical need for more representative datasets.
+Levantine Arabic, spoken across Syria, Jordan, Palestine, and Lebanon, is a dialect continuum with significant regional variations, making it challenging for current NLP technologies to capture \citep{haff2022currasbaladilevantine}. Existing hate speech detection models often overlook the rich cultural and sociolinguistic nuances of the dialect. This paper addresses the ethical, cultural, and linguistic challenges in detecting hate speech in Levantine Arabic and highlights the critical need for more representative datasets.
 
 
 \section{The Linguistic Complexity of Levantine Arabic}
 
 \subsection{Dialectal Variation}
 
-Levantine Arabic is a continuum of dialects differing significantly across countries and regions. For example, in Syria, the Damascus dialect contrasts with that of Idlib or rural areas; for instance, "clothes" is "awaei" in Damascus but "teyab" in Aleppo, and "girl" is "bint" in Damascus and "sabiye" elsewhere, with pronunciation variations like consonant softening altering meanings (Naïm, 2012). Jordanian Arabic varies between urban centers like Amman and rural areas that preserve traditional forms; "now" is "halla" in urban settings and "hassa" in rural regions, and the letter jim may be pronounced as a soft "j" or a hard "g" (Sakarna, 2005). Palestinian Arabic differs between Jerusalem, the West Bank, Gaza, and diaspora communities; "cup" is "kasseh" in Jerusalem but "kubayeh" in Gaza. In Lebanon, Beirut's Arabic incorporates French loanwords due to historical influences—unlike regions like Tripoli or the south—with a Beiruti using "merci" for "thank you," while others say "shukran"; the pronunciation of the letter qaf also varies between a glottal stop, a hard "k," or the standard "q" sound (Obégi, 1971; Naïm, 2012).
+Levantine Arabic is a continuum of dialects differing significantly across countries and regions. For example, in Syria, the Damascus dialect contrasts with that of Idlib or rural areas; for instance, "clothes" is "awaei" in Damascus but "teyab" in Aleppo, and "girl" is "bint" in Damascus and "sabiye" elsewhere, with pronunciation variations like consonant softening altering meanings \citep{Naïm+2012+920+935}. Jordanian Arabic varies between urban centers like Amman and rural areas that preserve traditional forms; "now" is "halla" in urban settings and "hassa" in rural regions, and the letter jim may be pronounced as a soft "j" or a hard "g" \citep{c3909b9d-f472-38b7-b06d-dfca0dcd22bb}. Palestinian Arabic differs between Jerusalem, the West Bank, Gaza, and diaspora communities; "cup" is "kasseh" in Jerusalem but "kubayeh" in Gaza. In Lebanon, Beirut's Arabic incorporates French loanwords due to historical influences—unlike regions like Tripoli or the south—with a Beiruti using "merci" for "thank you," while others say "shukran"; the pronunciation of the letter qaf also varies between a glottal stop, a hard "k," or the standard "q" sound \citep{obégi1971phonemic, Naïm+2012+920+935}.
 
 These regional differences are deeply tied to cultural and socio-political identities. Variations in expressions, idioms, and pronunciation can carry different meanings depending on locality, posing significant challenges for NLP tools aiming to detect hate speech across the Levantine region. Generic models, often trained on standardized Arabic, may not capture these subtleties
 
@@ -152,7 +167,7 @@ These regional differences are deeply tied to cultural and socio-political ident
 
 Understanding hate speech in Levantine Arabic requires not only linguistic proficiency but also a deep understanding of the socio-political context in which the language is used. The Levant is a region marked by ongoing conflicts, occupation, and political instability. Hate speech is often employed strategically to exacerbate sectarian divisions, mobilize political supporters, or criticize opposition groups.
 
-In Syria, for instance, even subtle linguistic features like the pronunciation of the qaf (ق) have become sociopolitical markers. Historically a neutral phonetic variation, the qaf pronunciation shifted during the conflict to signal regime alignment (Omran, 2021). Security forces used it in propaganda to stoke sectarian fears, while opposition groups mocked it as a regime identifier, transforming a simple linguistic trait into a symbol of allegiance and deepening societal divides.
+In Syria, for instance, even subtle linguistic features like the pronunciation of the qaf (\<ق>) have become sociopolitical markers. Historically a neutral phonetic variation, the qaf pronunciation shifted during the conflict to signal regime alignment \citep{Omran_2021}. Security forces used it in propaganda to stoke sectarian fears, while opposition groups mocked it as a regime identifier, transforming a simple linguistic trait into a symbol of allegiance and deepening societal divides.
 
 Similar dynamics can be observed in Lebanon, where political factions often use divisive rhetoric to maintain control. In this landscape, hate speech is not merely offensive language but part of broader strategies to sustain political dominance and suppress dissent. Any attempt to detect and mitigate hate speech in this context must account for these complex and shifting dynamics, including the sociopolitical significance of linguistic nuances.
 
@@ -161,17 +176,17 @@ Similar dynamics can be observed in Lebanon, where political factions often use 
 
 \subsection{Lack of Publicly Available Datasets}
 
-One of the most significant barriers to improving hate speech detection in Levantine Arabic is the lack of publicly available datasets. While several datasets exist for Modern Standard Arabic (MSA), Egyptian Arabic, Gulf Arabic, and others (Alakrota et al., 2018) (Mubarak et al., 2017) (Albadi et al., 2018) (Al-Ajlan and Ykhlef, 2018), there is a striking absence of resources dedicated to Levantine Arabic. This gap limits the ability of researchers and developers to create effective hate speech detection models for the region.
+One of the most significant barriers to improving hate speech detection in Levantine Arabic is the lack of publicly available datasets. While several datasets exist for Modern Standard Arabic (MSA), Egyptian Arabic, Gulf Arabic, and others \citep{ALAKROT2018174, mubarak-etal-2017-abusive, 10.5555/3382225.3382239, 8593146}, there is a striking absence of resources dedicated to Levantine Arabic. This gap limits the ability of researchers and developers to create effective hate speech detection models for the region.
 
-The few datasets that do exist for Levantine Arabic are often proprietary or restricted in scope, limiting their utility for broader research. Moreover, these datasets are rarely representative of the full spectrum of dialectal variation found within the Levant. Without publicly available, diverse datasets, the development of inclusive and effective NLP tools remains out of reach (Barocas et al. 2019).
+The few datasets that do exist for Levantine Arabic are often proprietary or restricted in scope, limiting their utility for broader research. Moreover, these datasets are rarely representative of the full spectrum of dialectal variation found within the Levant. Without publicly available, diverse datasets, the development of inclusive and effective NLP tools remains out of reach \citep{barocas-hardt-narayanan}.
 
 \subsection{Dialectal Bias in Existing Datasets}
 
-Even the best available datasets for Levantine Arabic are biased toward specific regional dialects. A prominent case in point is the Levantine Hate Speech and Abusive Language (L-HSAB) Twitter dataset—the first and only publicly available dataset dedicated to hate speech and abusive language in Levantine Arabic (Mulki et al., 2019). While L-HSAB is invaluable due to its size and scope, it disproportionately focuses on Lebanese Arabic. This bias stems primarily from its data collection methodology, which involved extracting tweets using keywords related to Lebanese political figures and events (Barocas and Selbst, 2016).
+Even the best available datasets for Levantine Arabic are biased toward specific regional dialects. A prominent case in point is the Levantine Hate Speech and Abusive Language (L-HSAB) Twitter dataset—the first and only publicly available dataset dedicated to hate speech and abusive language in Levantine Arabic \citep{mulki-etal-2019-l}. While L-HSAB is invaluable due to its size and scope, it disproportionately focuses on Lebanese Arabic. This bias stems primarily from its data collection methodology, which involved extracting tweets using keywords related to Lebanese political figures and events \citep{f5a0fc6c-286b-3484-9927-c1949a72ae5c}.
 
 The most frequently mentioned entities in L-HSAB are predominantly Lebanese. "Gebran Bassil," a Lebanese politician and leader of the Free Patriotic Movement, is mentioned over 1,000 times. The term "Lebanon" appears around 250 times, and "Wiam Wahhab," another Lebanese politician and journalist, is mentioned approximately 200 times. This concentration on specific individuals and topics skews the dataset toward Lebanese political discourse, thereby overlooking the linguistic and sociopolitical nuances present in other Levantine regions.
 
-This skew introduces significant bias, as the linguistic features, idiomatic expressions, and even manifestations of hate speech in Lebanese Arabic differ markedly from other Levantine dialects. For instance, certain derogatory terms or politically charged phrases common in Lebanese discourse may be absent or hold different connotations in Syrian or Jordanian contexts. A term like "زعران" ("za‘ran", meaning "thugs" in Lebanese Arabic) is a strong insult in Lebanon but does not carry the same weight in Syrian Arabic. Conversely, a Syrian expression such as "شبيحة" ("shabbiha", referring to pro-regime militias) is a loaded term in Syria but might not evoke the same response or understanding among Lebanese speakers (Üngör, 2020). 
+This skew introduces significant bias, as the linguistic features, idiomatic expressions, and even manifestations of hate speech in Lebanese Arabic differ markedly from other Levantine dialects. For instance, certain derogatory terms or politically charged phrases common in Lebanese discourse may be absent or hold different connotations in Syrian or Jordanian contexts. A term like "\<زعران>" ("za‘ran", meaning "thugs" in Lebanese Arabic) is a strong insult in Lebanon but does not carry the same weight in Syrian Arabic. Conversely, a Syrian expression such as "\<شبيحة>" ("shabbiha", referring to pro-regime militias) is a loaded term in Syria but might not evoke the same response or understanding among Lebanese speakers \citep{doi:10.1177/2633002420907771}. 
 
 Moreover, the focus on specific events and actors further narrows the dataset's applicability. The political landscape and issues prevalent in Lebanon are unique and may not reflect the concerns or conflicts in Syria, Jordan, or Palestine. Hate speech related to Lebanese political parties like the Free Patriotic Movement or events like the Lebanese protests of 2019 would not encompass the types of hate speech prevalent in other regions.
 
@@ -179,14 +194,14 @@ As a result, models trained on datasets like L-HSAB are less likely to generaliz
 
 Furthermore, this bias can lead to misclassification, where non-hateful speech in one dialect is incorrectly flagged as abusive because the model does not accurately interpret the linguistic nuances of that dialect. Conversely, actual hate speech may go undetected in underrepresented dialects, allowing harmful content to proliferate.
 
-In summary, while datasets like L-HSAB are crucial stepping stones in advancing hate speech detection for Levantine Arabic, their dialectal and topical biases highlight the need for more inclusive data collection strategies. Expanding the dataset to include a broader range of dialects and sociopolitical contexts is essential. By doing so, we can develop NLP tools that are both effective and equitable, ensuring that all communities within the Levantine region are adequately represented and protected in the digital space (Barocas et al. 2019).
+In summary, while datasets like L-HSAB are crucial stepping stones in advancing hate speech detection for Levantine Arabic, their dialectal and topical biases highlight the need for more inclusive data collection strategies. Expanding the dataset to include a broader range of dialects and sociopolitical contexts is essential. By doing so, we can develop NLP tools that are both effective and equitable, ensuring that all communities within the Levantine region are adequately represented and protected in the digital space \citep{barocas-hardt-narayanan}.
 
 
 \subsection{Limitations of Pre-trained Embeddings and the Need for Domain-Specific Models}
 
 In addition to dataset biases, the choice of language models and embeddings plays a crucial role in the effectiveness of hate speech detection systems. Our analyses and experiments on the L-HSAB dataset underscore the limitations of relying on pre-trained embeddings that are not tailored to the specific linguistic characteristics of Levantine Arabic.
 
-We evaluated several embedding techniques to assess their performance in detecting hate speech within the L-HSAB dataset. The methods included traditional approaches like Bag-of-Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF), as well as neural embeddings such as pre-trained Arabic fastText, custom-trained Word2Vec on Levantine Arabic data, pre-trained GoogleNews Word2Vec, and pre-trained GloVe embeddings (Harris, 1954) (Jones, 1972) (Bojanowski et al., 2016) (Mikolov et al., 2013) (Pennington et al., 2014).
+We evaluated several embedding techniques to assess their performance in detecting hate speech within the L-HSAB dataset. The methods included traditional approaches like Bag-of-Words (BoW) and Term Frequency-Inverse Document Frequency (TF-IDF), as well as neural embeddings such as pre-trained Arabic fastText, custom-trained Word2Vec on Levantine Arabic data, pre-trained GoogleNews Word2Vec, and pre-trained GloVe embeddings \citep{Harris1954DistributionalS, 10.5555/106765.106782, bojanowski2016enriching, mikolov2013efficientestimationwordrepresentations, pennington-etal-2014-glove}.
 
 Effective Techniques: Our experiments revealed that BoW, TF-IDF, pre-trained Arabic fastText, and custom-trained Word2Vec embeddings significantly outperformed the other methods. These techniques achieved higher F1 scores, indicating better precision and recall in identifying hate speech content. The success of these models can be attributed to their alignment with the linguistic properties of Levantine Arabic, either through their focus on Arabic text or customization to the specific dialect.
 
@@ -198,7 +213,7 @@ By investing in domain-specific models, researchers and technologists can create
 
 
 \section{Ethical Considerations in Hate Speech Detection}
-The dialectical bias identified above privileges one regional dialect over others, and risk marginalizing communities whose voices are already underrepresented in the digital sphere. There are also ethical concerns beyond issues of data bias. False positives—where non-hate speech is misclassified—can result in the suppression of legitimate cultural expressions, especially in a region where language is tightly bound to identity. A prominent example is the misclassification of the Arabic word "شهيد" ("shaheed", meaning "martyr") by social media platforms like Meta (Oversight Board, 2024). The term holds significant cultural and religious importance, often used to honor individuals who have died for a sacred cause. However, automated moderation systems have frequently removed content containing "shaheed," interpreting it as a reference to terrorism or violent extremism due to its association with entities on terrorism watchlists. 
+The dialectical bias identified above privileges one regional dialect over others, and risk marginalizing communities whose voices are already underrepresented in the digital sphere. There are also ethical concerns beyond issues of data bias. False positives—where non-hate speech is misclassified—can result in the suppression of legitimate cultural expressions, especially in a region where language is tightly bound to identity. A prominent example is the misclassification of the Arabic word "\<شهيد>" ("shaheed", meaning "martyr") by social media platforms like Meta \citep{oversightboard_shaheed_2024}. The term holds significant cultural and religious importance, often used to honor individuals who have died for a sacred cause. However, automated moderation systems have frequently removed content containing "shaheed," interpreting it as a reference to terrorism or violent extremism due to its association with entities on terrorism watchlists. 
 
 Conversely, false negatives—where actual hate speech goes undetected—allow harmful narratives to spread unchecked, fueling further violence. For example, derogatory terms or slurs specific to a particular region or group may go unnoticed by moderation systems trained primarily on other dialects or on Modern Standard Arabic. In the context of the Syrian conflict, hate speech containing region-specific pejoratives aimed at certain ethnic or sectarian groups might not be recognized as such by models lacking comprehensive dialectal data. This oversight enables the propagation of inflammatory content that can exacerbate tensions and incite real-world violence.
 
@@ -207,22 +222,22 @@ Ethically, technologists and researchers have a responsibility to develop models
 
 \section{Towards More Culturally Aware Language Technologies}
 
-Addressing the challenges of hate speech detection in Levantine Arabic requires practical solutions that consider the language's unique properties. Bergman and Diab (2022) offer valuable guidelines for developing effective and ethically sound NLP tools for underrepresented dialects. By incorporating these recommendations, we can create language technologies that are culturally aware and inclusive, specifically tailored to Levantine Arabic.
+Addressing the challenges of hate speech detection in Levantine Arabic requires practical solutions that consider the language's unique properties. \citet{bergman2022responsiblenaturallanguageannotation} offer valuable guidelines for developing effective and ethically sound NLP tools for underrepresented dialects. By incorporating these recommendations, we can create language technologies that are culturally aware and inclusive, specifically tailored to Levantine Arabic.
 
 
 \subsection{Engaging Local Communities}
 
-Engaging local communities is essential for capturing the full spectrum of dialectal variations and cultural contexts within Levantine Arabic. The language's rich diversity necessitates collaboration with native speakers from various regions. Involving annotators and experts who possess both language proficiency and deep understanding of local contexts ensures that the linguistic nuances specific to each dialect are accurately represented (Radiya-Dixit and Bogen, 2024).
+Engaging local communities is essential for capturing the full spectrum of dialectal variations and cultural contexts within Levantine Arabic. The language's rich diversity necessitates collaboration with native speakers from various regions. Involving annotators and experts who possess both language proficiency and deep understanding of local contexts ensures that the linguistic nuances specific to each dialect are accurately represented \citep{radiya-dixit_bogen_2024}.
 
 
 \subsection{Rethinking Data Collection and Annotation}
 
-To overcome dialectal bias, new data collection and annotation strategies must account for Levantine Arabic's specific properties. Given the significant dialectal variations, stratified sampling techniques are crucial for comprehensively capturing the linguistic landscape (Bergman and Diab, 2022). Annotation processes should prioritize using annotators proficient in specific regional dialects and familiar with local sociopolitical contexts (Caliskan et al., 2017; Radiya-Dixit and Bogen, 2024). Researchers must be mindful of potential consequences when collecting data from conflict-affected regions, as certain linguistic features can carry sociopolitical implications. Providing transparent annotation guidelines and support systems for annotators is also critical.
+To overcome dialectal bias, new data collection and annotation strategies must account for Levantine Arabic's specific properties. Given the significant dialectal variations, stratified sampling techniques are crucial for comprehensively capturing the linguistic landscape \citep{bergman2022responsiblenaturallanguageannotation}. Annotation processes should prioritize using annotators proficient in specific regional dialects and familiar with local sociopolitical contexts \citep{doi:10.1126/science.aal4230, radiya-dixit_bogen_2024}. Researchers must be mindful of potential consequences when collecting data from conflict-affected regions, as certain linguistic features can carry sociopolitical implications. Providing transparent annotation guidelines and support systems for annotators is also critical.
 
 
 \subsection{Prioritizing Ethical Design}
 
-Developing NLP tools for Levantine Arabic must be grounded in ethical design principles that account for the language's unique properties. Practitioners should carefully consider the granularity of language divisions within Levantine Arabic and strive for inclusivity without compromising annotation quality (Bergman and Diab, 2022). Providing support systems for annotators is essential, especially given potential exposure to disturbing content in conflict-affected regions. Access to psychological support and reasonable work conditions safeguards annotators' well-being and contributes to reliable annotations. By adopting these strategies, researchers can develop hate speech detection models that are equipped to handle Levantine Arabic's dialectal diversity and cultural contexts, promoting a more inclusive digital environment.
+Developing NLP tools for Levantine Arabic must be grounded in ethical design principles that account for the language's unique properties. Practitioners should carefully consider the granularity of language divisions within Levantine Arabic and strive for inclusivity without compromising annotation quality \citep{bergman2022responsiblenaturallanguageannotation}. Providing support systems for annotators is essential, especially given potential exposure to disturbing content in conflict-affected regions. Access to psychological support and reasonable work conditions safeguards annotators' well-being and contributes to reliable annotations. By adopting these strategies, researchers can develop hate speech detection models that are equipped to handle Levantine Arabic's dialectal diversity and cultural contexts, promoting a more inclusive digital environment.
 
 
 \section{Conclusion}
